@@ -4,23 +4,6 @@ import type { FetchNotesParams, FetchNotesResponse, Note } from "../types/note";
 const api = axios.create({
   baseURL: "https://notehub-public.goit.study/api",
 });
-console.log("ENV TOKEN AT BUILD:", import.meta.env.VITE_NOTEHUB_TOKEN);
-
-api.interceptors.request.use((config) => {
-  const token = import.meta.env.VITE_NOTEHUB_TOKEN as string | undefined;
-
-  console.log("TOKEN IN REQUEST:", token);
-
-  if (token) {
-    config.headers = config.headers ?? {};
-    config.headers.Authorization = `Bearer ${token}`;
-    console.log("AUTH HEADER:", config.headers.Authorization);
-  } else {
-    console.log("NO TOKEN -> Authorization header NOT set");
-  }
-
-  return config;
-});
 
 export const fetchNotes = async (
   params: FetchNotesParams
