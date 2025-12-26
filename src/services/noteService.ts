@@ -5,6 +5,17 @@ const api = axios.create({
   baseURL: "https://notehub-public.goit.study/api",
 });
 
+api.interceptors.request.use((config) => {
+  const token = import.meta.env.VITE_NOTEHUB_TOKEN as string | undefined;
+
+  if (token) {
+    config.headers = config.headers ?? {};
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 export const fetchNotes = async (
   params: FetchNotesParams
 ): Promise<FetchNotesResponse> => {
