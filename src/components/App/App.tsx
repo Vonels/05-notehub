@@ -1,5 +1,4 @@
-// src/components/App/App.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import css from "./App.module.css";
@@ -23,10 +22,6 @@ const App = () => {
   const [debouncedSearch] = useDebounce(search, 500);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch]);
-
   const queryParams: FetchNotesParams = {
     page,
     perPage: PER_PAGE,
@@ -37,9 +32,13 @@ const App = () => {
     useQuery<FetchNotesResponse>({
       queryKey: ["notes", queryParams],
       queryFn: () => fetchNotes(queryParams),
-      // 🔹 аналог старого keepPreviousData
       placeholderData: keepPreviousData,
     });
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
 
   const totalPages = data?.totalPages ?? 0;
   const notes = data?.notes ?? [];
@@ -47,7 +46,7 @@ const App = () => {
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox value={search} onChange={setSearch} />
+        <SearchBox value={search} onChange={handleSearchChange} />
 
         {totalPages > 1 && (
           <Pagination

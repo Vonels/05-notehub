@@ -1,4 +1,3 @@
-// src/components/NoteList/NoteList.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./NoteList.module.css";
 import type { Note } from "../../types/note";
