@@ -10,7 +10,6 @@ interface NoteListProps {
 const NoteList = ({ notes }: NoteListProps) => {
   const queryClient = useQueryClient();
 
-  // 🔹 useMutation ДЛЯ УДАЛЕНИЯ – в компоненте списка
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {

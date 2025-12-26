@@ -10,7 +10,6 @@ interface NoteFormProps {
   onCancel: () => void;
 }
 
-// схема валидации из ТЗ
 const validationSchema = Yup.object({
   title: Yup.string().min(3).max(50).required("Title is required"),
   content: Yup.string().max(500).required("Content is required"),
@@ -28,12 +27,11 @@ const initialValues: CreateNotePayload = {
 const NoteForm = ({ onCancel }: NoteFormProps) => {
   const queryClient = useQueryClient();
 
-  // 🔹 useMutation ДЛЯ СОЗДАНИЯ НОТАТКИ – уже в компоненте формы
   const createMutation = useMutation({
     mutationFn: (payload: CreateNotePayload) => createNote(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
-      onCancel(); // закрываем модалку
+      onCancel();
     },
   });
 
