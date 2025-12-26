@@ -5,6 +5,7 @@ import css from "./App.module.css";
 import { fetchNotes, createNote, deleteNote } from "../../services/noteService";
 import type { FetchNotesParams } from "../../types/note";
 import type { FetchNotesResponse } from "../../types/note";
+import type { CreateNotePayload } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchBox/SearchBox";
